@@ -2,7 +2,7 @@
 const Employee = require("../lib/Employee"); // import Employee.js
 
 describe("Employee", () =>{ 
-    // start of setting Employee Name, ID, and Email
+    // start of set
     it("Initiate Employee instance", () =>{
         const emp = new Employee();
         expect(typeof(emp)).toBe("object");
@@ -15,19 +15,19 @@ describe("Employee", () =>{
     });
 
     it("Set Employee ID via constuctor argument",() =>{
-        const id = "1001";
+        const id = 1001;
         const emp = new Employee("Alpha",id);
         expect(emp.id).toBe(id);
     });
 
     it("Set Employee email via constructor argument",() =>{
         const email ="aplha_1001@hotmail.com";
-        const emp = new Employee("Alpha","1001",email);
+        const emp = new Employee("Alpha",1001,email);
         expect(emp.email).toBe(email);
     });
-    // End of setting 
+    // End of set
 
-    // start of getting Employee Name, ID and Email
+    // start of get
 
     describe("getName",() =>{
         it("Get Employee name via getName()",() =>{
@@ -39,7 +39,7 @@ describe("Employee", () =>{
     
     describe("getId",() =>{
         it("Get Employee Id via getId()",() =>{
-            const td = "1001";
+            const td = 1001;
             const emp = new Employee("Alpha",td);
             expect(emp.getId()).toBe(td);
         });
@@ -48,7 +48,7 @@ describe("Employee", () =>{
     describe("getEmail",() =>{
         it("Get Employee email via getEmail()",() =>{
             const td = "aplha_1001@hotmail.com";
-            const emp = new Employee("Aplha","1001",td);
+            const emp = new Employee("Aplha",1001,td);
             expect(emp.getEmail()).toBe(td);
         });
     });
@@ -56,10 +56,10 @@ describe("Employee", () =>{
     describe("getRole",() =>{
         it("The getRole() should return \"Employee\"",() =>{
             const td = "Employee";
-            const emp = new Employee("Alpha","1001","aplha_1001@hotmail.com");
+            const emp = new Employee("Alpha",1001,"aplha_1001@hotmail.com");
             expect(emp.getRole()).toBe(td);
         });
     });
-    // End of getting
+    // End of get
 
 });
