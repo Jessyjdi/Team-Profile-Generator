@@ -1,6 +1,7 @@
 //Child of Employee
 
 const Manager = require('../lib/Manager');
+describe("Manager",()=>{
 // start set
 test('if office number is set to manager role via constructor', () => {
     const td = 1;
@@ -21,3 +22,4 @@ test('if office number is set to manager role via constructor', () => {
     expect(m.getOfficenumber()).toBe(td);
   });
   //end get
+});
