@@ -47,6 +47,11 @@ const createTeamMember = () => {
 // Choose Role to start building the team
 
 const startProfile = () => {
+  console.log(`
+  =========================================
+  Please enter the info to create your Team
+  =========================================
+  `)
   inquirer
     .prompt([
       {
@@ -77,21 +82,53 @@ const promptEngineerQ = () => {
         type: "input",
         name: "name",
         message: "What is the Engineer's name?",
+        validate: (nameInput) => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log("\nPlease enter the engineer's name!");
+            return false;
+          }
+        },
       },
       {
         type: "input",
         name: "id",
         message: "What is the Engineer's id?",
+        validate: (nameInput) => {
+          if (isNaN(nameInput)) {
+            console.log("\nNot a Number!Please enter the intern's ID!");
+            return false;
+          } else {
+            return true;
+          }
+        },
       },
       {
         type: "input",
         name: "email",
         message: "What is the Engineer's email?",
+        validate: (email) => {
+          valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+          if (valid) {
+            return true;
+          } else {
+            console.log("\nPlease enter a valid email!");
+            return false;
+          }
+        },
       },
       {
         type: "input",
         name: "github",
         message: "What is the Engineer's github name?",
+        validate: (nameInput) => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log("\nPlease enter the engineer's github username!");
+          }
+        },
       },
     ])
     .then((answers) => {
@@ -115,21 +152,53 @@ const promptInternQ = () => {
         type: "input",
         name: "name",
         message: "What is the Intern's name?",
+        validate: (nameInput) => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log("\nPlease enter the intern's name!");
+            return false;
+          }
+        },
       },
       {
         type: "input",
         name: "id",
         message: "What is the Intern's id?",
+        validate: (nameInput) => {
+          if (isNaN(nameInput)) {
+            console.log("\nOnly Numberic! Please enter the intern's ID!");
+            return false;
+          } else {
+            return true;
+          }
+        },
       },
       {
         type: "input",
         name: "email",
         message: "What is the Intern's email?",
+        validate: (email) => {
+          valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+          if (valid) {
+            return true;
+          } else {
+            console.log("\nPlease enter an email!");
+            return false;
+          }
+        },
       },
       {
         type: "input",
         name: "school",
         message: "Which school did the intern attend?",
+        validate: (nameInput) => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log("\nPlease enter the intern's school!");
+          }
+        },
       },
     ])
     .then((answers) => {
@@ -144,60 +213,92 @@ const promptInternQ = () => {
     });
 };
 
-
 const promptManagerQ = () => {
-    inquirer
-        .prompt ([
-            {
-                type: 'input',
-                name: 'name',
-                message: 'What is the managers name?',
-            },
-            {
-                type: 'input',
-                name: 'id',
-                message: 'What is the managers id number?',
-            },
-            {
-                type: 'input',
-                name: 'email',
-                message: 'What is the managers email?',
-            },
-            {
-                type: 'input',
-                name: 'officeNumber',
-                message: 'What is the managers office number?',
-            },
-        ])
-        .then((answers) => {
-            const newManager = new Manager(
-                answers.name,
-                answers.id,
-                answers.email,
-                answers.officeNumber,
-                answers.role,
-            );
-            managers.push(newManager);
-            createTeamMember();
-        });
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is the managers name?",
+        validate: (nameInput) => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log("\nPlease enter the manager's name!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is the managers id number?",
+        validate: (nameInput) => {
+          if (isNaN(nameInput)) {
+            console.log("\nPlease enter the manager's ID!");
+            return false;
+          } else {
+            return true;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is the managers email?",
+        validate: (email) => {
+          valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+          if (valid) {
+            return true;
+          } else {
+            console.log("\nPlease enter an email!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "officeNumber",
+        message: "What is the managers office number?",
+        validate: (nameInput) => {
+          if (isNaN(nameInput)) {
+            console.log("\nPlease enter an office number!");
+            return false;
+          } else {
+            return true;
+          }
+        },
+      },
+    ])
+    .then((answers) => {
+      const newManager = new Manager(
+        answers.name,
+        answers.id,
+        answers.email,
+        answers.officeNumber,
+        answers.role
+      );
+      managers.push(newManager);
+      createTeamMember();
+    });
 };
 
-const deleteHtmlFile = () =>{
-    // fs.unlinkSync() method ref:https://www.geeksforgeeks.org/node-js-fs-unlinksync-method/
-    fs.unlinkSync("./dist/index.html");
-    console.log("\nFile index.html is deleted");
+const deleteHtmlFile = () => {
+  // fs.unlinkSync() method ref:https://www.geeksforgeeks.org/node-js-fs-unlinksync-method/
+  fs.unlinkSync("./dist/index.html");
+  console.log("\nFile index.html");
 };
 
-const mainHtmlFile = () =>{
-    fs.appendFileSync("./dist/index.html", generateHtml());
+const mainHtmlFile = () => {
+  fs.appendFileSync("./dist/index.html", generateHtml());
 };
 
-const endOfHtmlFile = () =>{
-    fs.appendFileSync('./dist/index.html', endHtml());
-}
+const endOfHtmlFile = () => {
+  fs.appendFileSync("./dist/index.html", endHtml());
+};
 
-const generateHtml = () =>{
-    return `<!DOCTYPE html>
+const generateHtml = () => {
+  return `<!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="utf-8" />
@@ -217,18 +318,17 @@ const generateHtml = () =>{
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
           crossorigin="anonymous"
-        ></script>`
-}
+        ></script>`;
+};
 
-const generateManager = () =>{
-    managers.forEach((Manager => {
-        fs.appendFileSync('./dist/index.html', generateMgr(Manager))
-    }))
+const generateManager = () => {
+  managers.forEach((Manager) => {
+    fs.appendFileSync("./dist/index.html", generateMgr(Manager));
+  });
+};
 
-}
-
-const generateMgr = (Manager) =>{
-    return `<div class="row row-cols-1 row-cols-md-3 g-4">
+const generateMgr = (Manager) => {
+  return `<div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col">
       <div class="card text-bg-primary" style="width: 18rem">
         <h2> ${Manager.name}</h2>
@@ -254,17 +354,17 @@ const generateMgr = (Manager) =>{
           <li class="list-group-item">OfficeNumber: ${Manager.officeNumber}</li>
         </ul>
       </div>
-    </div>`
-}
-
-const generateEngineer = () => {
-    engineers.forEach((engineer => {
-        fs.appendFileSync('./dist/index.html', generateEng(engineer));
-    }));
+    </div>`;
 };
 
-const generateEng =(Engineer) =>{
-    return `<div class="col">
+const generateEngineer = () => {
+  engineers.forEach((engineer) => {
+    fs.appendFileSync("./dist/index.html", generateEng(engineer));
+  });
+};
+
+const generateEng = (Engineer) => {
+  return `<div class="col">
     <div class="card text-bg-primary" style="width: 18rem">
     <h2> ${Engineer.name}</h2>
       <h3 class="text-left engineer">
@@ -288,17 +388,17 @@ const generateEng =(Engineer) =>{
         </li>
       </ul>
     </div>
-  </div> `
-}
+  </div> `;
+};
 
 const generateIntern = () => {
-    interns.forEach((intern => {
-        fs.appendFileSync('./dist/index.html', generateInt(intern));
-    }));
-}
+  interns.forEach((intern) => {
+    fs.appendFileSync("./dist/index.html", generateInt(intern));
+  });
+};
 
-const generateInt =(Intern) =>{
-    return `<div class="col">
+const generateInt = (Intern) => {
+  return `<div class="col">
     <div class="card text-bg-primary" style="width: 18rem">
     <h2> ${Intern.name}</h2>
       <h3 class="text-left intern">
@@ -318,10 +418,9 @@ const generateInt =(Intern) =>{
     </div>
   </div>
 </div>
-    `
-}
+    `;
+};
 const endHtml = () => {
-    return `</body>
-    </html>`
-
-}
+  return `</body>
+    </html>`;
+};
